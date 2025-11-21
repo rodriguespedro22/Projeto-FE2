@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo de Reflexo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="title-group">
+      <p class="eyebrow">DOM + Eventos</p>
+      <h1>Jogo de Reflexo</h1>
+      <p class="subtitle">
+        Clique nos alvos assim que aparecerem. A velocidade aumenta quanto melhor o seu desempenho!
+      </p>
+    </div>
+    <div class="status-panel" aria-live="polite">
+      <div class="status-item">
+        <span class="label">Pontuação</span>
+        <strong id="score">0</strong>
+      </div>
+      <div class="status-item">
+        <span class="label">Perdidos</span>
+        <strong id="misses">0</strong>
+      </div>
+      <div class="status-item">
+        <span class="label">Modo</span>
+        <strong id="mode">Parado</strong>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="controls" aria-label="Controles do jogo">
+      <button id="start" class="button primary">Iniciar</button>
+      <button id="pause" class="button" disabled>Pausar</button>
+      <button id="reset" class="button ghost" disabled>Resetar</button>
+    </section>
+
+    <section class="board" id="board" aria-label="Área de jogo" role="presentation">
+      <p class="hint">Clique rápido!<br />Aparecimentos aleatórios com feedback visual.</p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
