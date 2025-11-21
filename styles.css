@@ -1,0 +1,271 @@
+:root {
+  --bg: #0c1021;
+  --card: #121731;
+  --accent: #7c5dff;
+  --accent-2: #12d8fa;
+  --text: #e5e8f0;
+  --muted: #9aa5c0;
+  --success: #57e39a;
+  --danger: #ff6f61;
+  --shadow: 0 10px 45px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at 20% 20%, #182040, #0c1021);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px 48px;
+}
+
+.app-header {
+  width: min(1080px, 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.title-group h1 {
+  margin: 4px 0 8px;
+  font-size: clamp(28px, 4vw, 38px);
+}
+
+.title-group .eyebrow {
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin: 0;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  max-width: 540px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.status-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.status-item {
+  background: var(--card);
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.status-item .label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status-item strong {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.layout {
+  width: min(1080px, 100%);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.button {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(1px);
+  filter: brightness(0.95);
+}
+
+.button.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b0f1e;
+}
+
+.button.ghost {
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.board {
+  position: relative;
+  background: radial-gradient(circle at 20% 20%, rgba(124, 93, 255, 0.12), rgba(12, 16, 33, 0.6));
+  border-radius: 16px;
+  height: clamp(360px, 60vh, 520px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hint {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  text-align: center;
+  pointer-events: none;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.target {
+  position: absolute;
+  width: 64px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
+  box-shadow: 0 10px 30px rgba(124, 93, 255, 0.35);
+  cursor: pointer;
+  transform: scale(0.6);
+  animation: appear 160ms ease forwards, float 1.2s ease-in-out infinite alternate;
+  display: grid;
+  place-items: center;
+  color: #0b0f1e;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  user-select: none;
+}
+
+.target::after {
+  content: "★";
+  font-size: 18px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+}
+
+.target.hit {
+  background: radial-gradient(circle at 30% 30%, #fff, var(--success));
+  box-shadow: 0 10px 28px rgba(87, 227, 154, 0.6);
+  animation: pop 220ms ease forwards;
+}
+
+.target.missed {
+  background: radial-gradient(circle at 30% 30%, #fff, var(--danger));
+  box-shadow: 0 10px 28px rgba(255, 111, 97, 0.6);
+  opacity: 0.8;
+}
+
+.toast {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 180ms ease, transform 180ms ease;
+  pointer-events: none;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes appear {
+  from {
+    transform: scale(0.4) translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  from {
+    transform: translateY(-4px) scale(1);
+  }
+  to {
+    transform: translateY(6px) scale(1.02);
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 22px 14px;
+  }
+
+  .app-header {
+    flex-direction: column;
+  }
+
+  .status-panel {
+    width: 100%;
+  }
+}
